@@ -1,0 +1,10 @@
+services:
+  sharex:
+    image: sharex
+
+    restart: unless-stopped
+
+    volumes:
+      - ./data:/app/data
+    ports:
+      - "127.0.0.1:1337:1337"
