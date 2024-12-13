@@ -14,5 +14,5 @@ pub fn get_extension(file_name: &str) -> &str {
     Path::new(file_name)
         .extension()
         .and_then(OsStr::to_str)
-        .unwrap()
+        .unwrap_or("")
 }

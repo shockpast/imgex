@@ -30,7 +30,23 @@ async fn upload_screenshot(headers: HeaderMap, mut multipart: Multipart) -> Resp
                 .unwrap();
         }
 
-        let sanitized_name = format!("{}.{}", random_string(6), get_extension(file_name.as_str()));
+        let mut sanitized_name: String = file_name.clone();
+
+        match env::var("IMG_OVERRIDE_NAME") {
+            Ok(value) => {
+                if value.to_lowercase() == "true" {
+                    sanitized_name = format!("{}.{}", random_string(6), get_extension(file_name.as_str()))
+                } else if value.to_lowercase() == "false" {
+                    sanitized_name = file_name;
+                }
+            }
+            Err(_) => {
+                return Response::builder()
+                    .status(StatusCode::INTERNAL_SERVER_ERROR)
+                    .body(Body::from(""))
+                    .unwrap();
+            }
+        }
 
         std::fs::write(format!("data/{}", &sanitized_name), data).unwrap();
 

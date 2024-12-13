@@ -10,9 +10,10 @@ tracing-subscriber = "0.3.19"
 mime_guess = "2.0.5"
 clean-path = "0.2.1"
 dotenvy = "0.15.7"
+chrono = "0.4.39"
 
 [dependencies.axum]
-version = "0.7.7"
+version = "0.7.9"
 features = ["multipart", "form", "macros"]
 default-features = true
 
